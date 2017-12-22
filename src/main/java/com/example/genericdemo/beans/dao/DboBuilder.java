@@ -39,6 +39,13 @@ public class DboBuilder {
         dbOperation.add(biFunction);
         return new DboBuilder(dbOperation);
     }
-
+    public DboBuilder withDb(Runnable runnable) {
+        BiFunction<Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, Object t) -> {
+            runnable.run();
+            return null;
+        };
+        dbOperation.add(biFunction);
+        return new DboBuilder(dbOperation);
+    }
 
 }
