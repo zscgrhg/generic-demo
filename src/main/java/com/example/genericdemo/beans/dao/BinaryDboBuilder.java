@@ -16,19 +16,19 @@ public class BinaryDboBuilder<R> {
     }
 
     public <T> BinaryDboBuilder<T> withDb(Function<Map<String, Object>, T> function) {
-        BiFunction<? extends Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, Object t) -> function.apply(context);
+        BiFunction<Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, Object t) -> function.apply(context);
         dbOperation.add(biFunction);
         return (BinaryDboBuilder<T>) new BinaryDboBuilder(dbOperation);
     }
 
     public <T> BinaryDboBuilder<T> withDb(Supplier<T> function) {
-        BiFunction<? extends Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, Object t) -> function.get();
+        BiFunction<Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, Object t) -> function.get();
         dbOperation.add(biFunction);
         return (BinaryDboBuilder<T>) new BinaryDboBuilder(dbOperation);
     }
 
     public DboBuilder withDb(BiConsumer<Map<String, Object>, R> function) {
-        BiFunction<? extends Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, R t) -> {
+        BiFunction<Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, R t) -> {
             function.accept(context, t);
             return null;
         };
@@ -37,7 +37,7 @@ public class BinaryDboBuilder<R> {
     }
 
     public DboBuilder withDb(Consumer<Map<String, Object>> function) {
-        BiFunction<? extends Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, Object t) -> {
+        BiFunction<Map<String, Object>, ?, ?> biFunction = (Map<String, Object> context, Object t) -> {
             function.accept(context);
             return null;
         };
